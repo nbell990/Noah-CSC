@@ -1,66 +1,78 @@
-// Randomly generate numbers between 1 and 1000 for user to guess.
+// Exercise 3.9 Solution: ex03_09.cpp
+// Create and manipulate Account objects.
 #include <iostream>
-#include <cstdlib>
+#include <string>
+#include "c3Account.h"
 using namespace std;
 
-void guessGame(); // function prototype
-bool isCorrect( char, char ); // function prototype
-
+// function main begins program execution
 int main()
 {
-   // srand( time( 0 ) ); // seed random number generator
-   guessGame();
+    Account account1{"Jane Green", 50};
+    Account account2{"John Blue", -7};
 
-   return 1; // indicate successful termination
+    //Sets names for each account
+    cout << "Enter name for account1: ";
+    string name1;
+    getline(cin, name1);
+    account1.setName(name1);
+    cout << "Account Name for Account1 is: "<< account1.getName();
 
-} // end main
+    cout << "\n Enter name for Account2: ";
+    string name2;
+    getline(cin, name2);
+    account2.setName(name2);
+    cout << " \n Account Name for Account2 is: " << account2.getName() << endl;
 
-// guessGame generates numbers between 1 and 1000
-// and checks user's guess
-void guessGame()
-{
-   int answer; // randomly generated number
-   int guess; // user's guess
-   char response; // 'y' or 'n' response to continue game
 
-   // loop until user types 'n' to quit game
-   do {
-      // generate random number between 1 and 1000
-      // 1 is shift, 1000 is scaling factor
-      answer = 1 + rand() % 1000;
+    // display initial balance of each object
+    cout << "account1: " << account1.getName() << " balance is $"
+         << account1.getBalance();
+    cout << "\naccount2: " << account2.getName() << " balance is $"
+         << account2.getBalance();
 
-      // prompt for guess
-      cout << "I have a number between 1 and 1000.\n"
-           << "Can you guess my number?\n"
-           << "Please type your first guess." << endl << "? ";
-      cin >> guess;
+    cout << "\n\nEnter deposit amount for account1: "; // prompt
+    int depositAmount;
+    cin >> depositAmount; // obtain user input
+    cout << "adding " << depositAmount << " to account1 balance";
+    account1.deposit(depositAmount); // add to account1's balance
 
-      // loop until correct number
-      while ( !isCorrect( guess, answer ) )
-         cin >> guess;
+    // display balances
+    cout << "\n\naccount1: " << account1.getName() << " balance is $"
+         << account1.getBalance();
+    cout << "\naccount2: " << account2.getName() << " balance is $"
+         << account2.getBalance();
 
-      // prompt for another game
-      cout << "\nExcellent! You guessed the number!\n"
-           << "Would you like to play again (y or n)? ";
-      cin >> response;
+    cout << "\n\nEnter deposit amount for account2: "; // prompt
+    cin >> depositAmount; // obtain user input
+    cout << "adding " << depositAmount << " to account2 balance";
+    account2.deposit(depositAmount); // add to account2 balance
 
-      cout << endl;
-   } while ( response == 'y' );
-} // end function guessGame
+    // display balances
+    cout << "\n\naccount1: " << account1.getName() << " balance is $"
+         << account1.getBalance();
+    cout << "\naccount2: " << account2.getName() << " balance is $"
+         << account2.getBalance() << endl;
 
-// isCorrect returns true if g equals a
-// if g does not equal a, displays hint
-bool isCorrect( char g, char a )
-{
-   // guess is correct
-   if ( g == a )
-      return true;
+    int withdrawalAmount; // stores withdrawal amount read from user
 
-   // guess is incorrect; display hint
-   if ( g < a )
-      cout << "Too low. Try again.\n? ";
-   if ( g > a )
-      cout << "Too high. Try again.\n? ";
+    cout << "\nEnter withdrawal amount for account1: "; // prompt
+    cin >> withdrawalAmount; // obtain user input
+    cout << "\nsubtracting " << withdrawalAmount
+         << " from account1 balance\n\n";
+    account1.withdraw(withdrawalAmount); // try to subtract from account1
 
-   return false;
-} // end function isCorrect
+    // display balances
+    cout << "account1 balance: $" << account1.getBalance() << endl;
+    cout << "account2 balance: $" << account2.getBalance() << endl;
+
+    cout << "\nEnter withdrawal amount for account2: "; // prompt
+    cin >> withdrawalAmount; // obtain user input
+    cout << "\nsubtracting " << withdrawalAmount
+         << " from account2 balance\n\n";
+    account2.withdraw(withdrawalAmount); // try to subtract from account2
+
+    // display balances
+    cout << "account1 balance: $" << account1.getBalance() << endl;
+    cout << "account2 balance: $" << account2.getBalance() << endl;
+}
