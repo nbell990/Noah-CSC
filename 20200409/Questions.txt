@@ -1,0 +1,85 @@
+1A 
+
+void ~Time(int) 
+
+This is invalid since a destructor is not allowed a return type, even if that type is void. A destructor also
+cannot specify parameters. The correct way to declare this destructor is:
+
+~Time();
+
+1B
+
+int Employee(string, string);
+
+A constructor should not have a return type. The proper way to declare this constructor would be:
+
+Employee(string, string);
+
+1C
+Original Code:
+
+class Example {
+public:
+ Example(int y = 10) : data(y) { }
+ int getIncrementedData() const {
+  return ++data;
+}
+static int getCount() {
+cout << "Data is " << data << endl;
+return count;
+}
+private:
+  int data;
+  static int count;
+};
+
+
+Fixed Code:
+
+#include <iostream>
+using namespace std;
+
+class Example {
+public:
+    Example(int y = 10){
+        data = y;
+    }
+
+
+    int getIncrementedData() {
+
+        return ++data;
+    }
+    int getCount() {
+        cout << "Data is " << data << endl;
+        return count;
+    }
+private:
+    int data;
+    static int count;
+};
+
+
+2
+
+The scope resolution operator "::" allows a function to be called from a class without first declaring
+an obect of that class.
+
+3
+
+Friend functions are non-member functions that can access public and non-public class members.
+Friend functions can access any data members in the class they're friends with, public, private, and protected.
+However, they aren't transitive, and must be declared by the class they are friends with. 
+For example, function setY() may be a friend of class A, and class A may be a friend of class B, but that doesn't
+mean setY() is also a friend of class B. This could cause errors in programming if class A uses may data members
+from class B unbenounced to the user of setY().
+
+4
+
+No this arrangement could not be used to create a constructor. IN the overflow stack of constructors, a constructor defined with three variables cannot
+pass to a constructor utilizing no variables.
+
+5
+If a return type is speciied for a constructor (even void) the compliler will abort compilation with an error message indicating that a return type
+may not be specified for a constructor.
+
